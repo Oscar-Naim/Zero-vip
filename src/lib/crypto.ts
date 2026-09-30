@@ -55,7 +55,7 @@ function getJwtSecretKey(): Uint8Array {
   const masterKey =
     process.env.GATEKEEPER_MASTER_KEY ||
     process.env.JWT_SECRET ||
-    'lyaxis-default-gatekeeper-secret-key-change-in-production-2026';
+    'OscarNaim_LYAXIS_MasterKey_2026!';
   const encoder = new TextEncoder();
   return encoder.encode(masterKey.padEnd(32, '0').slice(0, 32));
 }

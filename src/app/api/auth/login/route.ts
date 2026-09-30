@@ -37,7 +37,8 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const expectedKey = process.env.GATEKEEPER_MASTER_KEY || 'lyaxis_master_demo_key_2026';
+    const expectedKey =
+      process.env.GATEKEEPER_MASTER_KEY || 'OscarNaim_LYAXIS_MasterKey_2026!';
     const isValid = constantTimeCompare(masterKey, expectedKey);
 
     if (!isValid) {
