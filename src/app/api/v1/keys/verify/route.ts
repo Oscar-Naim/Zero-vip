@@ -7,6 +7,12 @@ import { VerifyTokenResponse } from '@/types';
 // Regex to validate token syntax before hitting DB
 const TOKEN_FORMAT_REGEX = /^LYX-[A-Z0-9]{3}-[A-Z0-9]{3}$/;
 
+const corsHeaders = {
+  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+  'Access-Control-Allow-Headers': 'Content-Type, Authorization, x-lyaxis-service-key, x-lyaxis-client',
+};
+
 export async function POST(req: NextRequest) {
   const ip = extractClientIp(req);
   const ipHash = hashIp(ip);
@@ -22,7 +28,7 @@ export async function POST(req: NextRequest) {
           reason: 'UNAUTHORIZED_SERVICE',
           message: 'Firma de servicio x-lyaxis-service-key ausente o no autorizada.',
         },
-        { status: 403 }
+        { status: 403, headers: corsHeaders }
       );
     }
   }
@@ -38,7 +44,7 @@ export async function POST(req: NextRequest) {
           reason: 'TOKEN_INVALID_OR_NOT_FOUND',
           message: 'Formato de token no válido. Debe seguir la estructura LYX-XXX-XXX.',
         },
-        { status: 400 }
+        { status: 400, headers: corsHeaders }
       );
     }
 
@@ -66,22 +72,25 @@ export async function POST(req: NextRequest) {
           reason: (result.reason as any) || 'TOKEN_INVALID_OR_NOT_FOUND',
           message: reasonMessages[result.reason] || 'Token no válido o agotado.',
         },
-        { status: 401 }
+        { status: 401, headers: corsHeaders }
       );
     }
 
     const { key } = result;
 
-    return NextResponse.json<VerifyTokenResponse>({
-      valid: true,
-      tier: key.tier,
-      assigned_to: key.assigned_to_name,
-      assigned_to_email: key.assigned_to_email,
-      current_uses: key.current_uses,
-      max_uses: key.max_uses,
-      status: key.status,
-      timestamp: new Date().toISOString(),
-    });
+    return NextResponse.json<VerifyTokenResponse>(
+      {
+        valid: true,
+        tier: key.tier,
+        assigned_to: key.assigned_to_name,
+        assigned_to_email: key.assigned_to_email,
+        current_uses: key.current_uses,
+        max_uses: key.max_uses,
+        status: key.status,
+        timestamp: new Date().toISOString(),
+      },
+      { status: 200, headers: corsHeaders }
+    );
   } catch (err: any) {
     console.error('Fatal error during token verification:', err);
     return NextResponse.json<VerifyTokenResponse>(
@@ -90,7 +99,7 @@ export async function POST(req: NextRequest) {
         reason: 'INTERNAL_ERROR',
         message: 'Error defensivo interno al verificar el token.',
       },
-      { status: 500 }
+      { status: 500, headers: corsHeaders }
     );
   }
 }
@@ -99,10 +108,6 @@ export async function POST(req: NextRequest) {
 export async function OPTIONS() {
   return new NextResponse(null, {
     status: 204,
-    headers: {
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Methods': 'POST, OPTIONS',
-      'Access-Control-Allow-Headers': 'Content-Type, Authorization, x-lyaxis-service-key, x-lyaxis-client',
-    },
+    headers: corsHeaders,
   });
 }
