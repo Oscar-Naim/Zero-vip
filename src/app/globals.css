@@ -1,0 +1,82 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-void: #050505;
+  --color-blue: #2563ff;
+  --color-cyan: #00d9ff;
+  --color-purple: #7c3aed;
+}
+
+body {
+  background-color: #050505;
+  color: #f1f5f9;
+  font-family: var(--font-sans, Inter, sans-serif);
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+/* Custom Cyber Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #080c14;
+}
+::-webkit-scrollbar-thumb {
+  background: #1e293b;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #00d9ff;
+}
+
+/* Cybernetic Glowing Borders */
+.border-glow-cyan {
+  box-shadow: 0 0 15px -3px rgba(0, 217, 255, 0.25), 0 0 6px -2px rgba(0, 217, 255, 0.4);
+}
+.border-glow-blue {
+  box-shadow: 0 0 15px -3px rgba(37, 99, 255, 0.25), 0 0 6px -2px rgba(37, 99, 255, 0.4);
+}
+.border-glow-purple {
+  box-shadow: 0 0 15px -3px rgba(124, 58, 237, 0.25), 0 0 6px -2px rgba(124, 58, 237, 0.4);
+}
+
+/* High-Tech Tactical Grid Background */
+.bg-cyber-grid {
+  background-size: 32px 32px;
+  background-image: 
+    linear-gradient(to right, rgba(37, 99, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(37, 99, 255, 0.04) 1px, transparent 1px);
+}
+
+/* Scanline Overlay */
+.scanlines {
+  position: relative;
+}
+.scanlines::before {
+  content: " ";
+  display: block;
+  position: absolute;
+  top: 0; left: 0; bottom: 0; right: 0;
+  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.01), rgba(0, 255, 0, 0.005), rgba(0, 0, 255, 0.01));
+  z-index: 40;
+  background-size: 100% 3px, 3px 100%;
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+/* Text Shimmer */
+@keyframes textGlow {
+  0%, 100% {
+    text-shadow: 0 0 8px rgba(0, 217, 255, 0.6), 0 0 20px rgba(0, 217, 255, 0.3);
+  }
+  50% {
+    text-shadow: 0 0 16px rgba(0, 217, 255, 0.9), 0 0 35px rgba(0, 217, 255, 0.5);
+  }
+}
+.glow-cyan-text {
+  animation: textGlow 3s ease-in-out infinite;
+}

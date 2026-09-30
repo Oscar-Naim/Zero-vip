@@ -1,0 +1,34 @@
+{
+  "name": "lyaxis-zero-vip-gatekeeper",
+  "version": "1.0.0",
+  "private": true,
+  "description": "LYAXIS labs™ — ZERO VIP Gatekeeper (All-in-One Vercel Edition)",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "test": "node scripts/test-e2e.mjs"
+  },
+  "dependencies": {
+    "@vercel/postgres": "^0.10.0",
+    "clsx": "^2.1.1",
+    "jose": "^5.9.6",
+    "lucide-react": "^0.475.0",
+    "next": "^15.1.7",
+    "pg": "^8.13.1",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "tailwind-merge": "^2.6.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.13.1",
+    "@types/pg": "^8.11.11",
+    "@types/react": "^19.0.8",
+    "@types/react-dom": "^19.0.3",
+    "autoprefixer": "^10.4.20",
+    "postcss": "^8.5.1",
+    "tailwindcss": "^3.4.17",
+    "typescript": "^5.7.3"
+  }
+}
